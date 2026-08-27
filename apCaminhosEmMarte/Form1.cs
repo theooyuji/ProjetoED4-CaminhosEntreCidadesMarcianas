@@ -13,7 +13,6 @@ namespace apCaminhosEmMarte
       InitializeComponent();
     }
 
-    ITabelaDeHash<Cidade> tabelaDeHash;
     private void Form1_Load(object sender, EventArgs e)
     {
 
@@ -26,16 +25,7 @@ namespace apCaminhosEmMarte
         // verificamos qual a técnica de Hash escolhida
         // pelo usuário e criamos uma tabela de hash de
         // acordo com essa escolha
-        if (rbBucketHash.Checked) 
-          tabelaDeHash = new BucketHash<Cidade>();
-        else
-          if (rbSondagemLinear.Checked)
-             tabelaDeHash = new HashLinear<Cidade>();
-          else
-            if (rbSondagemQuadratica.Checked)
-               tabelaDeHash = new HashQuadratico<Cidade>();
-            else
-              tabelaDeHash = new HashDuplo<Cidade>();
+  
 
         // abrimos o arquivo escolhido
         var asCidades = new StreamReader(dlgAbrir.FileName);
