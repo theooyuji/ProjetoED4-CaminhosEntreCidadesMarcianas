@@ -49,5 +49,40 @@ namespace apCaminhosEmMarte
       // registros armazenados devem ser gravados no arquivo
       // agora, aberto para saída (StreamWriter).
     }
-  }
+
+        private void label1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void textBox1_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label2_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void dataGridView2_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
+
+        private void btnAcharCaminho_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label1_Click_1(object sender, EventArgs e)
+        {
+
+        }
+
+        private void lbCaminhosEncontrados_Click(object sender, EventArgs e)
+        {
+
+        }
+    }
 }

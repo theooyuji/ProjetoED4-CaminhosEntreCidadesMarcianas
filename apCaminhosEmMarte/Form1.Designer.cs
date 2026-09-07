@@ -39,6 +39,13 @@
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.dataGridView2 = new System.Windows.Forms.DataGridView();
             this.pnlMapa = new System.Windows.Forms.Panel();
+            this.lbOrigem = new System.Windows.Forms.Label();
+            this.lbDestino = new System.Windows.Forms.Label();
+            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.textBox2 = new System.Windows.Forms.TextBox();
+            this.btnAcharCaminho = new System.Windows.Forms.Button();
+            this.lbMelhorCaminho = new System.Windows.Forms.Label();
+            this.lbCaminhosEncontrados = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
@@ -55,7 +62,7 @@
             this.groupBox1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(224)))), ((int)(((byte)(192)))));
             this.groupBox1.Controls.Add(this.rbRecursao);
             this.groupBox1.Controls.Add(this.rbPilhas);
-            this.groupBox1.Location = new System.Drawing.Point(182, 12);
+            this.groupBox1.Location = new System.Drawing.Point(228, 12);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(188, 51);
             this.groupBox1.TabIndex = 5;
@@ -136,7 +143,7 @@
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView1.Location = new System.Drawing.Point(12, 445);
             this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.Size = new System.Drawing.Size(836, 60);
+            this.dataGridView1.Size = new System.Drawing.Size(846, 60);
             this.dataGridView1.TabIndex = 8;
             // 
             // dataGridView2
@@ -144,10 +151,11 @@
             this.dataGridView2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left)));
             this.dataGridView2.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView2.Location = new System.Drawing.Point(12, 76);
+            this.dataGridView2.Location = new System.Drawing.Point(111, 148);
             this.dataGridView2.Name = "dataGridView2";
-            this.dataGridView2.Size = new System.Drawing.Size(164, 363);
+            this.dataGridView2.Size = new System.Drawing.Size(111, 291);
             this.dataGridView2.TabIndex = 9;
+            this.dataGridView2.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView2_CellContentClick);
             // 
             // pnlMapa
             // 
@@ -156,16 +164,88 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.pnlMapa.BackgroundImage = global::apCaminhosEmMarte.Properties.Resources.Mapa_Marte_sem_rotas;
             this.pnlMapa.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.pnlMapa.Location = new System.Drawing.Point(182, 76);
+            this.pnlMapa.Location = new System.Drawing.Point(228, 76);
             this.pnlMapa.Name = "pnlMapa";
-            this.pnlMapa.Size = new System.Drawing.Size(666, 363);
+            this.pnlMapa.Size = new System.Drawing.Size(630, 363);
             this.pnlMapa.TabIndex = 10;
+            // 
+            // lbOrigem
+            // 
+            this.lbOrigem.AutoSize = true;
+            this.lbOrigem.Location = new System.Drawing.Point(115, 66);
+            this.lbOrigem.Name = "lbOrigem";
+            this.lbOrigem.Size = new System.Drawing.Size(43, 13);
+            this.lbOrigem.TabIndex = 11;
+            this.lbOrigem.Text = "Origem:";
+            this.lbOrigem.Click += new System.EventHandler(this.label1_Click);
+            // 
+            // lbDestino
+            // 
+            this.lbDestino.AutoSize = true;
+            this.lbDestino.Location = new System.Drawing.Point(12, 66);
+            this.lbDestino.Name = "lbDestino";
+            this.lbDestino.Size = new System.Drawing.Size(46, 13);
+            this.lbDestino.TabIndex = 12;
+            this.lbDestino.Text = "Destino:";
+            this.lbDestino.Click += new System.EventHandler(this.label2_Click);
+            // 
+            // textBox1
+            // 
+            this.textBox1.Location = new System.Drawing.Point(118, 82);
+            this.textBox1.Name = "textBox1";
+            this.textBox1.Size = new System.Drawing.Size(100, 20);
+            this.textBox1.TabIndex = 13;
+            this.textBox1.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
+            // 
+            // textBox2
+            // 
+            this.textBox2.Location = new System.Drawing.Point(12, 82);
+            this.textBox2.Name = "textBox2";
+            this.textBox2.Size = new System.Drawing.Size(100, 20);
+            this.textBox2.TabIndex = 14;
+            // 
+            // btnAcharCaminho
+            // 
+            this.btnAcharCaminho.Location = new System.Drawing.Point(12, 148);
+            this.btnAcharCaminho.Name = "btnAcharCaminho";
+            this.btnAcharCaminho.Size = new System.Drawing.Size(88, 49);
+            this.btnAcharCaminho.TabIndex = 15;
+            this.btnAcharCaminho.Text = "Achar caminho";
+            this.btnAcharCaminho.UseVisualStyleBackColor = true;
+            this.btnAcharCaminho.Click += new System.EventHandler(this.btnAcharCaminho_Click);
+            // 
+            // lbMelhorCaminho
+            // 
+            this.lbMelhorCaminho.AutoSize = true;
+            this.lbMelhorCaminho.Location = new System.Drawing.Point(108, 132);
+            this.lbMelhorCaminho.Name = "lbMelhorCaminho";
+            this.lbMelhorCaminho.Size = new System.Drawing.Size(82, 13);
+            this.lbMelhorCaminho.TabIndex = 2;
+            this.lbMelhorCaminho.Text = "Melhor caminho";
+            this.lbMelhorCaminho.Click += new System.EventHandler(this.label1_Click_1);
+            // 
+            // lbCaminhosEncontrados
+            // 
+            this.lbCaminhosEncontrados.AutoSize = true;
+            this.lbCaminhosEncontrados.Location = new System.Drawing.Point(9, 429);
+            this.lbCaminhosEncontrados.Name = "lbCaminhosEncontrados";
+            this.lbCaminhosEncontrados.Size = new System.Drawing.Size(115, 13);
+            this.lbCaminhosEncontrados.TabIndex = 16;
+            this.lbCaminhosEncontrados.Text = "Caminhos encontrados";
+            this.lbCaminhosEncontrados.Click += new System.EventHandler(this.lbCaminhosEncontrados_Click);
             // 
             // FrmCaminhos
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(860, 517);
+            this.ClientSize = new System.Drawing.Size(870, 517);
+            this.Controls.Add(this.lbCaminhosEncontrados);
+            this.Controls.Add(this.lbMelhorCaminho);
+            this.Controls.Add(this.btnAcharCaminho);
+            this.Controls.Add(this.textBox2);
+            this.Controls.Add(this.textBox1);
+            this.Controls.Add(this.lbDestino);
+            this.Controls.Add(this.lbOrigem);
             this.Controls.Add(this.pnlMapa);
             this.Controls.Add(this.dataGridView2);
             this.Controls.Add(this.dataGridView1);
@@ -182,6 +262,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).EndInit();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
     }
 
@@ -198,6 +279,13 @@
         private System.Windows.Forms.DataGridView dataGridView1;
         private System.Windows.Forms.DataGridView dataGridView2;
         private System.Windows.Forms.Panel pnlMapa;
+        private System.Windows.Forms.Label lbOrigem;
+        private System.Windows.Forms.Label lbDestino;
+        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox textBox2;
+        private System.Windows.Forms.Button btnAcharCaminho;
+        private System.Windows.Forms.Label lbMelhorCaminho;
+        private System.Windows.Forms.Label lbCaminhosEncontrados;
     }
 }
 
