@@ -7,6 +7,10 @@
       "RelativeMoniker": "D:0:0:{192E6CE3-5075-4AD2-BD05-D4895A34D8DF}|apCaminhosEmMarte.csproj|solutionrelative:form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
+      "AbsoluteMoniker": "D:0:0:{192E6CE3-5075-4AD2-BD05-D4895A34D8DF}|apCaminhosEmMarte.csproj|C:\\Users\\u25155\\Documents\\GitHub\\ProjetoED4-CaminhosEntreCidadesMarcianas\\apCaminhosEmMarte\\cidade.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{192E6CE3-5075-4AD2-BD05-D4895A34D8DF}|apCaminhosEmMarte.csproj|solutionrelative:cidade.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{192E6CE3-5075-4AD2-BD05-D4895A34D8DF}|apCaminhosEmMarte.csproj|C:\\Users\\u25155\\Documents\\GitHub\\ProjetoED4-CaminhosEntreCidadesMarcianas\\apCaminhosEmMarte\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
       "RelativeMoniker": "D:0:0:{192E6CE3-5075-4AD2-BD05-D4895A34D8DF}|apCaminhosEmMarte.csproj|solutionrelative:form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
     },
@@ -20,10 +24,6 @@
     },
     {
       "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|P:\\19-Inform\u00E1tica\\2026\\2o ano\\TI221 - Estruturas de Dados\\01-Estruturas\\Pilhas\\apBuscaCaminhos\\GrafoBacktracking.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{192E6CE3-5075-4AD2-BD05-D4895A34D8DF}|apCaminhosEmMarte.csproj|C:\\Users\\u25155\\Documents\\GitHub\\ProjetoED4-CaminhosEntreCidadesMarcianas\\apCaminhosEmMarte\\cidade.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{192E6CE3-5075-4AD2-BD05-D4895A34D8DF}|apCaminhosEmMarte.csproj|solutionrelative:cidade.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -113,18 +113,17 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 5,
               "Title": "GrafoBacktracking.cs",
               "DocumentMoniker": "P:\\19-Inform\u00E1tica\\2026\\2o ano\\TI221 - Estruturas de Dados\\01-Estruturas\\Pilhas\\apBuscaCaminhos\\GrafoBacktracking.cs",
               "ToolTip": "P:\\19-Inform\u00E1tica\\2026\\2o ano\\TI221 - Estruturas de Dados\\01-Estruturas\\Pilhas\\apBuscaCaminhos\\GrafoBacktracking.cs",
               "ViewState": "AgIAAAYAAAAAAAAAAAAAAGoAAAAVAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-09-16T15:13:31.579Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-09-16T15:13:31.579Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 4,
               "Title": "PilhaLista.cs",
               "DocumentMoniker": "C:\\Users\\u25155\\Documents\\GitHub\\ProjetoED4-CaminhosEntreCidadesMarcianas\\apCaminhosEmMarte\\PilhaLista.cs",
               "RelativeDocumentMoniker": "PilhaLista.cs",
@@ -132,12 +131,11 @@
               "RelativeToolTip": "PilhaLista.cs",
               "ViewState": "AgIAADsAAAAAAAAAAAAAwEEAAAApAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-09-16T12:00:36.414Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-09-16T12:00:36.414Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 3,
               "Title": "Ligacao.cs",
               "DocumentMoniker": "C:\\Users\\u25155\\Documents\\GitHub\\ProjetoED4-CaminhosEntreCidadesMarcianas\\apCaminhosEmMarte\\Ligacao.cs",
               "RelativeDocumentMoniker": "Ligacao.cs",
@@ -145,12 +143,11 @@
               "RelativeToolTip": "Ligacao.cs",
               "ViewState": "AgIAAFkAAAAAAAAAAAA8wF8AAAAaAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-09-16T11:42:27.366Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-09-16T11:42:27.366Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 2,
               "Title": "Form1.cs [Design]",
               "DocumentMoniker": "C:\\Users\\u25155\\Documents\\GitHub\\ProjetoED4-CaminhosEntreCidadesMarcianas\\apCaminhosEmMarte\\Form1.cs",
               "RelativeDocumentMoniker": "Form1.cs",
@@ -168,22 +165,23 @@
               "RelativeDocumentMoniker": "Form1.cs",
               "ToolTip": "C:\\Users\\u25155\\Documents\\GitHub\\ProjetoED4-CaminhosEntreCidadesMarcianas\\apCaminhosEmMarte\\Form1.cs",
               "RelativeToolTip": "Form1.cs",
-              "ViewState": "AgIAAOkAAAAAAAAAAAAAAL0AAAB1AAAAAAAAAA==",
+              "ViewState": "AgIAAAEBAAAAAAAAAAAAAAMBAAAQAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2026-09-16T10:51:38.08Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 1,
               "Title": "Cidade.cs",
               "DocumentMoniker": "C:\\Users\\u25155\\Documents\\GitHub\\ProjetoED4-CaminhosEntreCidadesMarcianas\\apCaminhosEmMarte\\Cidade.cs",
               "RelativeDocumentMoniker": "Cidade.cs",
               "ToolTip": "C:\\Users\\u25155\\Documents\\GitHub\\ProjetoED4-CaminhosEntreCidadesMarcianas\\apCaminhosEmMarte\\Cidade.cs",
               "RelativeToolTip": "Cidade.cs",
-              "ViewState": "AgIAAEMAAAAAAAAAAAAxwEUAAAAfAAAAAAAAAA==",
+              "ViewState": "AgIAAEQAAAAAAAAAAAAAAEUAAAAfAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-09-16T11:05:16.161Z"
+              "WhenOpened": "2026-09-16T11:05:16.161Z",
+              "EditorCaption": ""
             }
           ]
         }

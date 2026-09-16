@@ -12,6 +12,7 @@ namespace apCaminhosEmMarte
         Ligacao[,] matrizAdjacencia;
         Cidade[] cidades;
         int qtasCidades;
+        CriteriosSeparacao criterioAtual;
         public FrmCaminhos()
         {
               InitializeComponent();
@@ -233,16 +234,42 @@ namespace apCaminhosEmMarte
                     if (!achouCaminho)
                     {
                         visitados[indCidade] = false;
-                        ProcuraCidade(new Cidade(pilhaBacktracking.OTopo().IdInicio), out indCidade);
-                        ProcuraCidade(new Cidade(pilhaBacktracking.OTopo().IdFim), out indDestino);
-                        indDestino++;
+                        if (!pilhaBacktracking.EstaVazia)
+                        {
+                            ProcuraCidade(new Cidade(pilhaBacktracking.OTopo().IdInicio), out indCidade);
+                            ProcuraCidade(new Cidade(pilhaBacktracking.OTopo().IdFim), out indDestino);
+                            indDestino++;
 
-                        pilhaBacktracking.Desempilhar();
+                            pilhaBacktracking.Desempilhar();
+                        }
                     }
                 }
             }
 
             return caminhosTotais;
+        }
+
+        private void ProcuraCaminhoRecursivo(int orig,int dest, int final, List<List<Ligacao>> caminhosTotais,List<Ligacao> caminhoAtual,bool[] visitados)
+        {
+            caminhoAtual.Add(matrizAdjacencia[orig,dest]);
+            visitados[dest] = true;
+            if(dest == final)
+            {
+                caminhosTotais.Add(new List<Ligacao>(caminhoAtual));
+            }
+            else
+            {
+               for(int i = 0; i < tamanhoVetor; i++)
+                {
+                    if(visitados[i] || matrizAdjacencia[dest,i] == null)
+                    {
+                        continue;
+                    }
+                    ProcuraCaminhoRecursivo(dest, i, final,  caminhosTotais,  caminhoAtual,visitados);
+                }
+            }
+            caminhoAtual.RemoveAt(caminhoAtual.Count - 1);
+            visitados[dest] = false;
         }
     }
 }
