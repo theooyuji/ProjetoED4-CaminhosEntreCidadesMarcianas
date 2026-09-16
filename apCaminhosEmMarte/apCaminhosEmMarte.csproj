@@ -55,7 +55,10 @@
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
     <Compile Include="IRegistro.cs" />
+    <Compile Include="IStack.cs" />
     <Compile Include="Ligacao.cs" />
+    <Compile Include="NoLista.cs" />
+    <Compile Include="PilhaLista.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Form1.resx">

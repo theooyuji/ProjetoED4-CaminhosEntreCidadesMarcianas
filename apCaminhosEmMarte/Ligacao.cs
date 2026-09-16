@@ -78,14 +78,22 @@ namespace apCaminhosEmMarte
             }
         }
 
-        public Ligacao(int idInicio,int idFim,int dist,int tempo, int custo)
+        public Ligacao(int idInicio, int idFim, int dist, int tempo, int custo)
         {
             this.IdInicio = idInicio;
             this.IdFim = idFim;
             this.Distancia = dist;
             this.Tempo = tempo;
             this.Custo = custo;
+        }
 
+        public Ligacao()
+        {
+            this.idIni = 0;
+            this.idFim = 0;
+            this.custo = 0;
+            this.tempo = 0;
+            this.dist = 0;
         }
 
         public int AcessarCriterioSeparacao(CriteriosSeparacao criterio)

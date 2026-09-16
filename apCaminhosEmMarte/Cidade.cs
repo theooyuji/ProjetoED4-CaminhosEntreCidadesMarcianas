@@ -51,7 +51,10 @@ namespace apCaminhosEmMarte
 
         public Cidade()
         {
-
+            this.id = 0;
+            this.nome = "";
+            this.cordX = -1;
+            this.cordY = -1;
         }
 
         public Cidade(int idCidade,string nomeCidade,double cordX,double cordY)
@@ -60,6 +63,14 @@ namespace apCaminhosEmMarte
             this.Nome = nomeCidade;
             this.CordX = cordX;
             this.CordY = cordY;
+        }
+
+        public Cidade(int idCidade)
+        {
+            this.id = idCidade;
+            this.nome = "";
+            this.cordX = -1;
+            this.cordY = -1;
         }
 
         public int CompareTo(Cidade outra)
