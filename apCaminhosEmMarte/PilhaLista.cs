@@ -55,6 +55,17 @@ public class PilhaLista<T> : IStack<T>
         }
         return conteudo;
     }
+
+    public List<T> ConteudoInvertido()
+    {
+        var pilhaInvertida = new PilhaLista<T>();
+        while (!this.EstaVazia)
+        {
+            pilhaInvertida.Empilhar(this.Desempilhar());
+        }
+        return pilhaInvertida.Conteudo();
+    }
+
     public void Exibir(DataGridView dgvPilha)
     {
         List<T> dadosEmpilhados = Conteudo();

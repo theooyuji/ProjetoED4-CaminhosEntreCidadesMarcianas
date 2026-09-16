@@ -141,6 +141,7 @@ namespace apCaminhosEmMarte
             }
 
             matrizAdjacencia[ondeIni, ondeFim] = ligacao;
+            matrizAdjacencia[ondeFim, ondeIni] = ligacao;
         }
         
         private bool ProcuraCidade(Cidade proc, out int onde)
@@ -169,21 +170,76 @@ namespace apCaminhosEmMarte
         }
 
 
-        private List<List<Cidade>> ProcuraCaminhoPilha(int idIni,int idFim)
+        private List<List<Ligacao>> ProcuraCaminhoPilha(int idIni,int idFim)
         {
-            List<List<Cidade>> caminhosTotais = new List<List<Cidade>>();
-            PilhaLista<Cidade> pilhaBacktracking = new PilhaLista<Cidade>();
+            List<List<Ligacao>> caminhosTotais = new List<List<Ligacao>>();
+            PilhaLista<Ligacao> pilhaBacktracking = new PilhaLista<Ligacao>();
             
-            int indCidade = 0;
-            ProcuraCidade(new Cidade(idIni), out indCidade);
+            bool[] visitados = new bool[tamanhoVetor];
+   
+            int indOrigem = 0,indDestino = 0,indFinal = 0;
 
-            pilhaBacktracking.Empilhar(cidades[indCidade]);
+            ProcuraCidade(new Cidade(idIni), out indOrigem);
+            ProcuraCidade(new Cidade(idFim), out indFinal);
 
-            while (!pilhaBacktracking.EstaVazia)
+            int indCidade = indOrigem;
+
+            bool podeContinuar = true;
+            while (podeContinuar)
             {
-                Cidade atual = pilhaBacktracking.Desempilhar();
-                ProcuraCidade(atual, out indCidade);
+                podeContinuar = !(indCidade == indOrigem && indDestino == tamanhoVetor && pilhaBacktracking.EstaVazia);
+                bool achouCaminho = false;
 
+                if (podeContinuar)
+                {
+                    while((indDestino < tamanhoVetor) && !achouCaminho)
+                    {
+                        if (matrizAdjacencia[indCidade,indDestino] == null)
+                        {
+                            indDestino++;
+                        }
+                        else
+                        {
+                            if (visitados[indDestino])
+                            {
+                                indDestino++;
+                            }
+                            else
+                            {
+                                if(indDestino == indFinal) {
+
+                                    pilhaBacktracking.Empilhar(matrizAdjacencia[indCidade, indDestino]);
+
+                                    caminhosTotais.Add(pilhaBacktracking.ConteudoInvertido());
+                                    pilhaBacktracking.Desempilhar();
+
+                                    visitados[indFinal] = false;
+                                    achouCaminho = true;
+                                    indDestino++;
+                                }
+                                else
+                                {
+
+                                    pilhaBacktracking.Empilhar(matrizAdjacencia[indCidade, indDestino]);
+
+                                    visitados[indCidade] = true;
+                                    indDestino = 0;
+                                    ProcuraCidade(new Cidade(pilhaBacktracking.OTopo().IdFim), out indCidade);
+
+                                }
+                            }
+                        }
+                    }
+                    if (!achouCaminho)
+                    {
+                        visitados[indCidade] = false;
+                        ProcuraCidade(new Cidade(pilhaBacktracking.OTopo().IdInicio), out indCidade);
+                        ProcuraCidade(new Cidade(pilhaBacktracking.OTopo().IdFim), out indDestino);
+                        indDestino++;
+
+                        pilhaBacktracking.Desempilhar();
+                    }
+                }
             }
 
             return caminhosTotais;
