@@ -9,10 +9,12 @@ namespace apCaminhosEmMarte
     public partial class FrmCaminhos : Form
     {
         const int tamanhoVetor = 100;
-        Ligacao[,] matrizAdjacencia;
-        Cidade[] cidades;
-        int qtasCidades;
-        CriteriosSeparacao criterioAtual;
+        private Ligacao[,] matrizAdjacencia;
+        private Cidade[] cidades;
+        private int qtasCidades;
+        private CriteriosSeparacao criterioAtual;
+        private List<List<Ligacao>> caminhos;
+        private int indFinal;
         public FrmCaminhos()
         {
               InitializeComponent();
@@ -23,6 +25,8 @@ namespace apCaminhosEmMarte
             cidades = new Cidade[tamanhoVetor];
             matrizAdjacencia = new Ligacao[tamanhoVetor, tamanhoVetor];
             qtasCidades = 0;
+            caminhos = null;
+
         }
 
         private void btnAbrirArquivo_Click(object sender, EventArgs e)
@@ -171,14 +175,13 @@ namespace apCaminhosEmMarte
         }
 
 
-        private List<List<Ligacao>> ProcuraCaminhoPilha(int idIni,int idFim)
+        private void ProcuraCaminhoPilha(int idIni,int idFim)
         {
-            List<List<Ligacao>> caminhosTotais = new List<List<Ligacao>>();
             PilhaLista<Ligacao> pilhaBacktracking = new PilhaLista<Ligacao>();
             
             bool[] visitados = new bool[tamanhoVetor];
    
-            int indOrigem = 0,indDestino = 0,indFinal = 0;
+            int indOrigem = 0,indDestino = 0;
 
             ProcuraCidade(new Cidade(idIni), out indOrigem);
             ProcuraCidade(new Cidade(idFim), out indFinal);
@@ -211,7 +214,7 @@ namespace apCaminhosEmMarte
 
                                     pilhaBacktracking.Empilhar(matrizAdjacencia[indCidade, indDestino]);
 
-                                    caminhosTotais.Add(pilhaBacktracking.ConteudoInvertido());
+                                    caminhos.Add(pilhaBacktracking.ConteudoInvertido());
                                     pilhaBacktracking.Desempilhar();
 
                                     visitados[indFinal] = false;
@@ -245,17 +248,15 @@ namespace apCaminhosEmMarte
                     }
                 }
             }
-
-            return caminhosTotais;
         }
 
-        private void ProcuraCaminhoRecursivo(int orig,int dest, int final, List<List<Ligacao>> caminhosTotais,List<Ligacao> caminhoAtual,bool[] visitados)
+        private void ProcuraCaminhoRecursivo(int orig,int dest,List<Ligacao> caminhoAtual,bool[] visitados)
         {
             caminhoAtual.Add(matrizAdjacencia[orig,dest]);
             visitados[dest] = true;
-            if(dest == final)
+            if(dest == indFinal)
             {
-                caminhosTotais.Add(new List<Ligacao>(caminhoAtual));
+                caminhos.Add(new List<Ligacao>(caminhoAtual));
             }
             else
             {
@@ -265,7 +266,7 @@ namespace apCaminhosEmMarte
                     {
                         continue;
                     }
-                    ProcuraCaminhoRecursivo(dest, i, final,  caminhosTotais,  caminhoAtual,visitados);
+                    ProcuraCaminhoRecursivo(dest, i, caminhoAtual,visitados);
                 }
             }
             caminhoAtual.RemoveAt(caminhoAtual.Count - 1);

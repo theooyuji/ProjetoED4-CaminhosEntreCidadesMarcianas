@@ -24,3 +24,13 @@ C:\Users\u25155\Documents\GitHub\ProjetoED4-CaminhosEntreCidadesMarcianas\apCami
 C:\Users\u25155\Documents\GitHub\ProjetoED4-CaminhosEntreCidadesMarcianas\apCaminhosEmMarte\obj\Debug\apCaminhosEmMarte.csproj.CoreCompileInputs.cache
 C:\Users\u25155\Documents\GitHub\ProjetoED4-CaminhosEntreCidadesMarcianas\apCaminhosEmMarte\obj\Debug\apCaminhosEmMarte.exe
 C:\Users\u25155\Documents\GitHub\ProjetoED4-CaminhosEntreCidadesMarcianas\apCaminhosEmMarte\obj\Debug\apCaminhosEmMarte.pdb
+C:\Users\User\Documents\GitHub\ProjetoED4-CaminhosEntreCidadesMarcianas\apCaminhosEmMarte\bin\Debug\apCaminhosEmMarte.exe.config
+C:\Users\User\Documents\GitHub\ProjetoED4-CaminhosEntreCidadesMarcianas\apCaminhosEmMarte\bin\Debug\apCaminhosEmMarte.exe
+C:\Users\User\Documents\GitHub\ProjetoED4-CaminhosEntreCidadesMarcianas\apCaminhosEmMarte\bin\Debug\apCaminhosEmMarte.pdb
+C:\Users\User\Documents\GitHub\ProjetoED4-CaminhosEntreCidadesMarcianas\apCaminhosEmMarte\obj\Debug\apCaminhosEmMarte.csproj.AssemblyReference.cache
+C:\Users\User\Documents\GitHub\ProjetoED4-CaminhosEntreCidadesMarcianas\apCaminhosEmMarte\obj\Debug\apCaminhosEmMarte.FrmCaminhos.resources
+C:\Users\User\Documents\GitHub\ProjetoED4-CaminhosEntreCidadesMarcianas\apCaminhosEmMarte\obj\Debug\apCaminhosEmMarte.Properties.Resources.resources
+C:\Users\User\Documents\GitHub\ProjetoED4-CaminhosEntreCidadesMarcianas\apCaminhosEmMarte\obj\Debug\apCaminhosEmMarte.csproj.GenerateResource.cache
+C:\Users\User\Documents\GitHub\ProjetoED4-CaminhosEntreCidadesMarcianas\apCaminhosEmMarte\obj\Debug\apCaminhosEmMarte.csproj.CoreCompileInputs.cache
+C:\Users\User\Documents\GitHub\ProjetoED4-CaminhosEntreCidadesMarcianas\apCaminhosEmMarte\obj\Debug\apCaminhosEmMarte.exe
+C:\Users\User\Documents\GitHub\ProjetoED4-CaminhosEntreCidadesMarcianas\apCaminhosEmMarte\obj\Debug\apCaminhosEmMarte.pdb
