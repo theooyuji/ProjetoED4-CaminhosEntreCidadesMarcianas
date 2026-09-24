@@ -29,7 +29,7 @@ namespace apCaminhosEmMarte
 
            if(!LeuArquivoCidades() || !LeuArquivoLigacoes())
             {
-                MessageBox.Show("Erro ao ler arquivos", "Abortanto programa", MessageBoxButtons.OK,MessageBoxIcon.Error);
+                MessageBox.Show("Erro ao ler arquivos", "Abortando programa", MessageBoxButtons.OK,MessageBoxIcon.Error);
                 Application.Exit();
             }
 
@@ -61,6 +61,10 @@ namespace apCaminhosEmMarte
                         qtasCidades++;
                         InserirEmOrdem(novaCidade);
                     }
+                    else
+                    {
+                        return false;
+                    }
                 }
 
                 // Desenhar os nomes das cidades no mapa de Marte
@@ -83,6 +87,10 @@ namespace apCaminhosEmMarte
                     if (novaLigacao.LerRegistro(arqLigacoes))
                     {
                         InserirEmOrdem(novaLigacao);
+                    }
+                    else
+                    {
+                        return false;
                     }
 
                 }
@@ -136,6 +144,9 @@ namespace apCaminhosEmMarte
             int indMelhorCaminho = 1;
             int melhorParametro = int.MaxValue;
 
+            dgvCaminhos.Columns.Clear();
+            dgvCaminhos.Rows.Clear();
+
             if(caminhos == null)
             {
                 MessageBox.Show("Não existem caminhos entre as cidades selecionadas !", "Erro ao encontrar caminho", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
@@ -148,15 +159,32 @@ namespace apCaminhosEmMarte
                 
                 int parametroAtual = 0;
                 int linhaAtual = 0;
-                int indCidade = 0;
-                
+                int indCidadeIni = 0;
+                int indCidadeFim = 0;
+                List<Cidade> cidadesVistas = new List<Cidade>();
                 foreach(Ligacao lig in caminho)
                 {
                     parametroAtual += lig.AcessarCriterioSeparacao(criterioAtual);
-                    dgvCaminhos.Rows.Add();
-                    ProcuraCidade(new Cidade(lig.IdInicio), out indCidade);
-                    dgvCaminhos.Rows[linhaAtual++].Cells[indCaminhoAtual - 1].Value = cidades[indCidade].Nome;
+                    
+                    
+                    ProcuraCidade(new Cidade(lig.IdInicio), out indCidadeIni);
+                    ProcuraCidade(new Cidade(lig.IdFim), out indCidadeFim);
+
+                    if (cidadesVistas.Find(c => c.CompareTo(cidades[indCidadeIni]) == 0) == default(Cidade))
+                    {
+                        dgvCaminhos.Rows.Add();
+                        dgvCaminhos.Rows[linhaAtual++].Cells[indCaminhoAtual - 1].Value = cidades[indCidadeIni].Nome;
+                    }
+                    if(cidadesVistas.Find(c => c.CompareTo(cidades[indCidadeFim]) == 0) == default(Cidade))
+                    { 
+                        dgvCaminhos.Rows.Add();
+                        dgvCaminhos.Rows[linhaAtual++].Cells[indCaminhoAtual - 1].Value = cidades[indCidadeFim].Nome;
+                    }
+
+                    cidadesVistas.Add(cidades[indCidadeIni]);
+                    cidadesVistas.Add(cidades[indCidadeFim]);
                 }
+
 
                 if(parametroAtual < melhorParametro)
                 {
@@ -200,7 +228,8 @@ namespace apCaminhosEmMarte
         {
             int ondeIni;
             int ondeFim;
-            if(!ProcuraCidade(new Cidade(ligacao.IdInicio), out ondeIni) || !ProcuraCidade(new Cidade(ligacao.IdFim),out ondeFim))
+
+            if(!(ProcuraCidade(new Cidade(ligacao.IdInicio), out ondeIni) && ProcuraCidade(new Cidade(ligacao.IdFim),out ondeFim)))
             {
                 return;
             }
@@ -218,7 +247,14 @@ namespace apCaminhosEmMarte
         {
             int ini = 0;
             int fim = qtasCidades - 1;
-            while(ini < fim)
+
+            if(ini == fim)
+            {
+                onde = ini;
+                return false;
+            }
+
+            while(ini <= fim)
             {
                 onde = ini + (fim - ini) / 2;
                 int comparacao = cidades[onde].CompareTo(proc);

@@ -59,9 +59,10 @@ public class PilhaLista<T> : IStack<T>
     public List<T> ConteudoInvertido()
     {
         var pilhaInvertida = new PilhaLista<T>();
-        while (!this.EstaVazia)
+        var conteudo = this.Conteudo();
+        foreach(var x in conteudo)
         {
-            pilhaInvertida.Empilhar(this.Desempilhar());
+            pilhaInvertida.Empilhar(x);
         }
         return pilhaInvertida.Conteudo();
     }
