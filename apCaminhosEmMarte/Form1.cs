@@ -8,7 +8,7 @@ namespace apCaminhosEmMarte
 {
     public partial class FrmCaminhos : Form
     {
-        const int tamanhoVetor = 100;
+        const int tamanhoVetor = 25;
         private Ligacao[,] matrizAdjacencia;
         private Cidade[] cidades;
         private int qtasCidades;
@@ -27,18 +27,27 @@ namespace apCaminhosEmMarte
             qtasCidades = 0;
             caminhos = null;
 
+           if(!LeuArquivoCidades() || !LeuArquivoLigacoes())
+            {
+                MessageBox.Show("Erro ao ler arquivos", "Abortanto programa", MessageBoxButtons.OK,MessageBoxIcon.Error);
+                Application.Exit();
+            }
+
+
+            PreencheCbCidades(ref cbOrigem);
+            PreencheCbCidades(ref cbDestino);
         }
 
-        private void btnAbrirArquivo_Click(object sender, EventArgs e)
+        private bool LeuArquivoCidades()
         {
             dlgAbrir.Title = "Selecione o arquivo de cidades";
 
             if (dlgAbrir.ShowDialog() == DialogResult.OK)
-                {
+            {
                 // verificamos qual a técnica de Hash escolhida
                 // pelo usuário e criamos uma tabela de hash de
                 // acordo com essa escolha
-    
+
 
                 // abrimos o arquivo escolhido
                 var asCidades = new StreamReader(dlgAbrir.FileName);
@@ -46,18 +55,23 @@ namespace apCaminhosEmMarte
                 while (!asCidades.EndOfStream)
                 {
                     Cidade novaCidade = new Cidade();
-                    
+
                     if (novaCidade.LerRegistro(asCidades))
                     {
                         qtasCidades++;
                         InserirEmOrdem(novaCidade);
                     }
                 }
-                
-                // Desenhar os nomes das cidades no mapa de Marte
-                asCidades.Close();  // deixar arquivo fechado
-            }
 
+                // Desenhar os nomes das cidades no mapa de Marte
+                asCidades.Close();
+                return true;// deixar arquivo fechado
+            }
+            return false;
+        }
+
+        private bool LeuArquivoLigacoes()
+        {
             dlgAbrir.Title = "Seleciona o arquivo de ligações";
 
             if (dlgAbrir.ShowDialog() == DialogResult.OK)
@@ -72,49 +86,100 @@ namespace apCaminhosEmMarte
                     }
 
                 }
+
+                return true;
             }
-        }
 
-        private void FrmCaminhos_FormClosing(object sender, FormClosingEventArgs e)
-        {
-        // aqui, a tabela de hash deve ser percorrida e os 
-        // registros armazenados devem ser gravados no arquivo
-        // agora, aberto para saída (StreamWriter).
-        }
-
-        private void label1_Click(object sender, EventArgs e)
-        {
+            return false;
 
         }
 
-        private void textBox1_TextChanged(object sender, EventArgs e)
+        private void PreencheCbCidades(ref ComboBox cb)
         {
-
-        }
-
-        private void label2_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void dataGridView2_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
-
+            for(int i = 0; i < qtasCidades; i++)
+            {
+                if (cidades[i] == null)
+                {
+                    continue;
+                }
+                cb.Items.Add(cidades[i]);
+            }
+            cb.DisplayMember = "Nome";
         }
 
         private void btnAcharCaminho_Click(object sender, EventArgs e)
         {
+            Cidade cidadeOrigem = (Cidade)cbOrigem.SelectedItem;
+            Cidade cidadeDestino = (Cidade)cbDestino.SelectedItem;
+
+            ProcuraCidade(cidadeDestino, out indFinal);
+
+            caminhos = new List<List<Ligacao>>();
+
+            if (rbPilhas.Checked)
+            {
+                ProcuraCaminhoPilha(cidadeOrigem.Id);
+            }
+            else
+            {
+                int indOrigem = 0;
+                ProcuraCidade(cidadeOrigem, out indOrigem);
+                ProcuraCaminhoRecursivo(indOrigem, new List<Ligacao>(), new bool[tamanhoVetor]);
+            }
+
+            ExibirCaminhos();
+        }
+        
+        private void ExibirCaminhos()
+        {
+            int indCaminhoAtual = 1;
+            int indMelhorCaminho = 1;
+            int melhorParametro = int.MaxValue;
+
+            if(caminhos == null)
+            {
+                MessageBox.Show("Não existem caminhos entre as cidades selecionadas !", "Erro ao encontrar caminho", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                return;
+            }
+
+            foreach(List<Ligacao> caminho in caminhos)
+            {
+                dgvCaminhos.Columns.Add("NumeroCaminho" + indCaminhoAtual, $"{indCaminhoAtual}a");
+                
+                int parametroAtual = 0;
+                int linhaAtual = 0;
+                int indCidade = 0;
+                
+                foreach(Ligacao lig in caminho)
+                {
+                    parametroAtual += lig.AcessarCriterioSeparacao(criterioAtual);
+                    dgvCaminhos.Rows.Add();
+                    ProcuraCidade(new Cidade(lig.IdInicio), out indCidade);
+                    dgvCaminhos.Rows[linhaAtual++].Cells[indCaminhoAtual - 1].Value = cidades[indCidade].Nome;
+                }
+
+                if(parametroAtual < melhorParametro)
+                {
+                    indMelhorCaminho = indCaminhoAtual;
+                }
+                indCaminhoAtual++;
+
+            }
 
         }
 
-        private void label1_Click_1(object sender, EventArgs e)
+        private void VerificaCriterio(object sender, EventArgs e)
         {
-
-        }
-
-        private void lbCaminhosEncontrados_Click(object sender, EventArgs e)
-        {
-
+            RadioButton rb = (RadioButton)sender;
+            if (rb.Checked)
+            {
+                switch (rb.Name)
+                {
+                    case "rbDistancia":criterioAtual = CriteriosSeparacao.Distancia;break;
+                    case "rbTempo":criterioAtual = CriteriosSeparacao.Tempo;break;
+                    case "rbCusto":criterioAtual = CriteriosSeparacao.Custo;break;
+                }
+            }
         }
 
 
@@ -175,7 +240,7 @@ namespace apCaminhosEmMarte
         }
 
 
-        private void ProcuraCaminhoPilha(int idIni,int idFim)
+        private void ProcuraCaminhoPilha(int idIni)
         {
             PilhaLista<Ligacao> pilhaBacktracking = new PilhaLista<Ligacao>();
             
@@ -184,8 +249,7 @@ namespace apCaminhosEmMarte
             int indOrigem = 0,indDestino = 0;
 
             ProcuraCidade(new Cidade(idIni), out indOrigem);
-            ProcuraCidade(new Cidade(idFim), out indFinal);
-
+    
             int indCidade = indOrigem;
 
             bool podeContinuar = true;
@@ -250,27 +314,34 @@ namespace apCaminhosEmMarte
             }
         }
 
-        private void ProcuraCaminhoRecursivo(int orig,int dest,List<Ligacao> caminhoAtual,bool[] visitados)
+        private void ProcuraCaminhoRecursivo(int orig,List<Ligacao> caminhoAtual,bool[] visitados)
         {
-            caminhoAtual.Add(matrizAdjacencia[orig,dest]);
-            visitados[dest] = true;
-            if(dest == indFinal)
+            if(orig == indFinal)
             {
                 caminhos.Add(new List<Ligacao>(caminhoAtual));
             }
             else
             {
-               for(int i = 0; i < tamanhoVetor; i++)
+                for(int i = 0; i < tamanhoVetor; i++)
                 {
-                    if(visitados[i] || matrizAdjacencia[dest,i] == null)
+                    if (visitados[i] || matrizAdjacencia[orig,i] == null)
                     {
                         continue;
                     }
-                    ProcuraCaminhoRecursivo(dest, i, caminhoAtual,visitados);
+
+                    caminhoAtual.Add(matrizAdjacencia[orig, i]);
+                    visitados[i] = true;
+
+                    ProcuraCaminhoRecursivo(i, caminhoAtual, visitados);
+
+                    caminhoAtual.RemoveAt(caminhoAtual.Count - 1);
+                    visitados[i] = false;
                 }
             }
-            caminhoAtual.RemoveAt(caminhoAtual.Count - 1);
-            visitados[dest] = false;
+        }
+        private void pnlMapa_Paint(object sender, PaintEventArgs e)
+        {
+
         }
     }
 }

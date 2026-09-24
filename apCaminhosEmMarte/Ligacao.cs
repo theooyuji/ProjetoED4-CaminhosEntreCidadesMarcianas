@@ -126,7 +126,7 @@ namespace apCaminhosEmMarte
         public bool LerRegistro(StreamReader arquivo)
         {
             string[] campos = arquivo.ReadLine().Split(';');
-            if(campos != null && campos.Length == 4)
+            if(campos != null && campos.Length == 5)
             {
                 IdInicio = int.Parse(campos[0]);
                 IdFim = int.Parse(campos[1]);

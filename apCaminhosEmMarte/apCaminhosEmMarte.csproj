@@ -90,5 +90,20 @@
   <ItemGroup>
     <None Include="Resources\Mapa Marte sem rotas.jpg" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="lista.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="lista2.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Lupa.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Mapa Marte com Rotas Aereas.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Mapa Marte sem rotas sem cidades.jpg" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
