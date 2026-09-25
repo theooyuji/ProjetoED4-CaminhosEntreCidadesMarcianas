@@ -9,15 +9,26 @@ namespace apCaminhosEmMarte
     public partial class FrmCaminhos : Form
     {
         const int tamanhoVetor = 25;
+        
         private Ligacao[,] matrizAdjacencia;
         private Cidade[] cidades;
         private int qtasCidades;
+        
         private CriteriosSeparacao criterioAtual;
         private List<List<Ligacao>> caminhos;
+        
         private int indFinal;
+        private int indCaminhoAtual;
+        private int indMelhorCaminho;
+
+        private bool desenhaCaminhos = false;
+
+        private const float tamanhoCirculo = 10f;
+
         public FrmCaminhos()
         {
-              InitializeComponent();
+            InitializeComponent();
+
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -37,6 +48,8 @@ namespace apCaminhosEmMarte
 
             PreencheCbCidades(ref cbOrigem);
             PreencheCbCidades(ref cbDestino);
+
+            pnlMapa.Invalidate();
         }
 
         private bool LeuArquivoCidades()
@@ -120,6 +133,12 @@ namespace apCaminhosEmMarte
             Cidade cidadeOrigem = (Cidade)cbOrigem.SelectedItem;
             Cidade cidadeDestino = (Cidade)cbDestino.SelectedItem;
 
+            if (cidadeOrigem.CompareTo(cidadeDestino) == 0)
+            {
+                MessageBox.Show("Selecione cidades difentes", "Erro ao encontrar caminhos entre cidades", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
             ProcuraCidade(cidadeDestino, out indFinal);
 
             caminhos = new List<List<Ligacao>>();
@@ -140,7 +159,7 @@ namespace apCaminhosEmMarte
         
         private void ExibirCaminhos()
         {
-            int indMelhorCaminho = 1;
+            indMelhorCaminho = 1;
             int melhorParametro = int.MaxValue;
             int tamanhoMaiorCaminho = 0;
 
@@ -166,17 +185,20 @@ namespace apCaminhosEmMarte
                 dgvCaminhos.Columns.Add("col" + i, $"{i+1}a");
             }
 
-            
-            foreach(List<Ligacao> caminho in caminhos)
+            int indCidadeIni = 0;
+            int indCidadeFim = 0;
+            int parametroAtual = 0;
+            int colunaAtual = 0;
+            List<Cidade> cidadesVistas = new List<Cidade>();
+            foreach (List<Ligacao> caminho in caminhos)
             {
-                int linhaAtual = dgvCaminhos.Rows.Add();
-                
-                int indCidadeIni = 0;
-                int indCidadeFim = 0;
-                int parametroAtual = 0;
-                int colunaAtual = 0;
+                 int linhaAtual = dgvCaminhos.Rows.Add();
+                 indCidadeIni = 0;
+                 indCidadeFim = 0;
+                 parametroAtual = 0;
+                 colunaAtual = 0;
 
-                List<Cidade> cidadesVistas = new List<Cidade>();
+                cidadesVistas = new List<Cidade>(); 
                 
                 foreach(Ligacao lig in caminho)
                 {
@@ -204,29 +226,40 @@ namespace apCaminhosEmMarte
                 }
             }
 
+            ExibirMelhorCaminho(indMelhorCaminho);
+        }
+
+        private void ExibirMelhorCaminho(int indMelhorCaminho)
+        {
+
+            dgvMelhorCaminho.Columns.Clear();
+            dgvMelhorCaminho.Rows.Clear();
+
+            dgvMelhorCaminho.Columns.Add("melhorCaminho", "Passando por");
             List<Ligacao> melhorCaminho = caminhos[indMelhorCaminho];
+
             int indCidadeIni = 0;
             int indCidadeFim = 0;
-            int colunaAtual = 0;
-            List<Cidade> cidadesVistas = new List<Cidade>();
-            foreach (Ligacao lig in melhorCaminho)
-            {
-                int linhaAtual = dgvCaminhos.Rows.Add();
 
-                
+            List<Cidade> cidadesVistas = new List<Cidade>();
+            
+            foreach(Ligacao lig in melhorCaminho)
+            {
+                int indLinha;
 
                 ProcuraCidade(new Cidade(lig.IdInicio), out indCidadeIni);
                 ProcuraCidade(new Cidade(lig.IdFim), out indCidadeFim);
 
-
                 if (cidadesVistas.Find(c => c.CompareTo(cidades[indCidadeIni]) == 0) == default(Cidade))
                 {
-                    dgvCaminhos[colunaAtual++, linhaAtual].Value = cidades[indCidadeIni].Nome;
+                    indLinha = dgvMelhorCaminho.Rows.Add();
+                    dgvMelhorCaminho.Rows[indLinha].Cells[0].Value = cidades[indCidadeIni].Nome;
                     cidadesVistas.Add(cidades[indCidadeIni]);
                 }
                 if (cidadesVistas.Find(c => c.CompareTo(cidades[indCidadeFim]) == 0) == default(Cidade))
                 {
-                    dgvCaminhos[colunaAtual++, linhaAtual].Value = cidades[indCidadeFim].Nome;
+                    indLinha = dgvMelhorCaminho.Rows.Add();
+                    dgvMelhorCaminho.Rows[indLinha].Cells[0].Value = cidades[indCidadeFim].Nome;
                     cidadesVistas.Add(cidades[indCidadeFim]);
 
                 }
@@ -414,7 +447,86 @@ namespace apCaminhosEmMarte
         }
         private void pnlMapa_Paint(object sender, PaintEventArgs e)
         {
+            
+            DesenhaCidades(e.Graphics);
 
+            if (desenhaCaminhos)
+            {
+                DesenhaCaminho(e.Graphics);
+            }
+        }
+
+        private void PintaMelhorCaminho(object sender, DataGridViewCellEventArgs e)
+        {
+            desenhaCaminhos = true;
+            indCaminhoAtual = indMelhorCaminho;
+            pnlMapa.Invalidate();
+        }
+
+        private void DesenhaCaminho(Graphics g)
+        {
+            if (caminhos.Count < indCaminhoAtual)
+            {
+                return;
+            }
+
+            List<Ligacao> caminhoSelecionado = caminhos[indCaminhoAtual];
+
+            float tamanhoXMapa = pnlMapa.Width;
+            float tamanhoYMapa = pnlMapa.Height;
+            
+            foreach(Ligacao lig in caminhoSelecionado)
+            {
+                int indCidadeIni = 0;
+                int indCidadeFim = 0;
+
+                ProcuraCidade(new Cidade(lig.IdInicio), out indCidadeIni);
+                ProcuraCidade(new Cidade(lig.IdFim), out indCidadeFim);
+
+                float coordenadaX1 = (float)cidades[indCidadeIni].CordX * tamanhoXMapa;
+                float coordenadaY1 = (float)cidades[indCidadeIni].CordY * tamanhoYMapa;
+
+                float coordenadaX2 = (float)cidades[indCidadeFim].CordX * tamanhoXMapa;
+                float coordenadaY2 = (float)cidades[indCidadeFim].CordY * tamanhoYMapa;
+
+                g.DrawLine(Pens.Red, coordenadaX1, coordenadaY1, coordenadaX2, coordenadaY2);
+            }
+        }
+
+        private void DesenhaCidades(Graphics g)
+        {
+
+            if(cidades == null)
+            {
+                return;
+            }
+
+            float tamanhoMapaX = pnlMapa.Width;
+            float tamanhoMapaY = pnlMapa.Height;
+
+            for(int i = 0; i < qtasCidades; i++)
+            {
+                float coordenadaXCidade = (float)cidades[i].CordX * tamanhoMapaX;
+                float coordenadaYCidade = (float)cidades[i].CordY * tamanhoMapaY;
+
+                g.DrawEllipse(Pens.Black, coordenadaXCidade - (tamanhoCirculo / 2), coordenadaYCidade - (tamanhoCirculo / 2), tamanhoCirculo, tamanhoCirculo);
+                g.FillEllipse(Brushes.Black, coordenadaXCidade - (tamanhoCirculo / 2), coordenadaYCidade - (tamanhoCirculo / 2), tamanhoCirculo, tamanhoCirculo);
+                g.DrawString(cidades[i].Nome, Font, Brushes.Black, coordenadaXCidade - tamanhoCirculo, coordenadaYCidade + tamanhoCirculo / 2);
+            }
+
+        }   
+
+        private void pnlMapa_Resize(object sender, EventArgs e)
+        {
+            desenhaCaminhos = true;
+            pnlMapa.Invalidate();
+        }
+
+        private void dgvCaminhos_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            indCaminhoAtual = dgvCaminhos.SelectedCells[0].RowIndex;
+            desenhaCaminhos = true;
+            pnlMapa.Invalidate();
         }
     }
 }

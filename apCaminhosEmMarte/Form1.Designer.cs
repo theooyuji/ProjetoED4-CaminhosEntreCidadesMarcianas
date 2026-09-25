@@ -153,6 +153,7 @@
             this.dgvCaminhos.Name = "dgvCaminhos";
             this.dgvCaminhos.Size = new System.Drawing.Size(846, 60);
             this.dgvCaminhos.TabIndex = 8;
+            this.dgvCaminhos.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvCaminhos_CellClick);
             // 
             // dgvMelhorCaminho
             // 
@@ -161,6 +162,7 @@
             this.dgvMelhorCaminho.Name = "dgvMelhorCaminho";
             this.dgvMelhorCaminho.Size = new System.Drawing.Size(111, 311);
             this.dgvMelhorCaminho.TabIndex = 9;
+            this.dgvMelhorCaminho.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.PintaMelhorCaminho);
             // 
             // lbOrigem
             // 
@@ -237,6 +239,7 @@
             this.pnlMapa.Size = new System.Drawing.Size(630, 363);
             this.pnlMapa.TabIndex = 10;
             this.pnlMapa.Paint += new System.Windows.Forms.PaintEventHandler(this.pnlMapa_Paint);
+            this.pnlMapa.Resize += new System.EventHandler(this.pnlMapa_Resize);
             // 
             // FrmCaminhos
             // 
