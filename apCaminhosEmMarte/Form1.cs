@@ -414,7 +414,7 @@ namespace apCaminhosEmMarte
                     if (!achouCaminho)
                     {
                         visitados[indCidade] = false;
-                        if (!pilhaBacktracking.EstaVazia)
+                        if (pilhaBacktracking.EstaVazia)
                         {
                             int orig = indCidade;
 
