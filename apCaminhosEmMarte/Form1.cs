@@ -236,16 +236,19 @@ namespace apCaminhosEmMarte
             dgvMelhorCaminho.Rows.Clear();
 
             dgvMelhorCaminho.Columns.Add("melhorCaminho", "Passando por");
+      
             List<Ligacao> melhorCaminho = caminhos[indMelhorCaminho];
 
             int indCidadeIni = 0;
             int indCidadeFim = 0;
+            int somaParametro = 0;
 
             List<Cidade> cidadesVistas = new List<Cidade>();
             
             foreach(Ligacao lig in melhorCaminho)
             {
                 int indLinha;
+                somaParametro += lig.AcessarCriterioSeparacao(criterioAtual);
 
                 ProcuraCidade(new Cidade(lig.IdInicio), out indCidadeIni);
                 ProcuraCidade(new Cidade(lig.IdFim), out indCidadeFim);
@@ -264,6 +267,13 @@ namespace apCaminhosEmMarte
 
                 }
             }
+
+            switch (criterioAtual)
+            {
+                case CriteriosSeparacao.Distancia: lbMelhorCaminho.Text = $"Melhor caminho {somaParametro}km";break;
+                case CriteriosSeparacao.Tempo: lbMelhorCaminho.Text = $"Melhor caminho {somaParametro}h";break;
+                case CriteriosSeparacao.Custo:lbMelhorCaminho.Text = $"Melhor caminho {somaParametro}$";break;
+            }
         }
 
         private void VerificaCriterio(object sender, EventArgs e)
@@ -275,7 +285,7 @@ namespace apCaminhosEmMarte
                 {
                     case "rbDistancia":criterioAtual = CriteriosSeparacao.Distancia;break;
                     case "rbTempo":criterioAtual = CriteriosSeparacao.Tempo;break;
-                    case "rbCusto":criterioAtual = CriteriosSeparacao.Custo;break;
+                    case "rbPreco":criterioAtual = CriteriosSeparacao.Custo;break;
                 }
             }
         }
@@ -529,5 +539,7 @@ namespace apCaminhosEmMarte
             desenhaCaminhos = true;
             pnlMapa.Invalidate();
         }
+
+        
     }
 }
