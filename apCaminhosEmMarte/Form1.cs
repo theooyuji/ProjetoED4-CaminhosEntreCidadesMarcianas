@@ -475,6 +475,7 @@ namespace apCaminhosEmMarte
             float tamanhoXMapa = pnlMapa.Width;
             float tamanhoYMapa = pnlMapa.Height;
             
+            Pen pen = new Pen(Brushes.Red,4f);
             foreach(Ligacao lig in caminhoSelecionado)
             {
                 int indCidadeIni = 0;
@@ -489,7 +490,7 @@ namespace apCaminhosEmMarte
                 float coordenadaX2 = (float)cidades[indCidadeFim].CordX * tamanhoXMapa;
                 float coordenadaY2 = (float)cidades[indCidadeFim].CordY * tamanhoYMapa;
 
-                g.DrawLine(Pens.Red, coordenadaX1, coordenadaY1, coordenadaX2, coordenadaY2);
+                g.DrawLine(pen, coordenadaX1, coordenadaY1, coordenadaX2, coordenadaY2);
             }
         }
 
