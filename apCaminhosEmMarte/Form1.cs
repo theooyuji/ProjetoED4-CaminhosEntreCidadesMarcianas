@@ -126,6 +126,8 @@ namespace apCaminhosEmMarte
                 cb.Items.Add(cidades[i]);
             }
             cb.DisplayMember = "Nome";
+
+            cb.SelectedIndex = 0;
         }
 
         private void btnAcharCaminho_Click(object sender, EventArgs e)

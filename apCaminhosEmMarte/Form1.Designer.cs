@@ -151,15 +151,21 @@
             this.dgvCaminhos.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvCaminhos.Location = new System.Drawing.Point(12, 445);
             this.dgvCaminhos.Name = "dgvCaminhos";
+            this.dgvCaminhos.ReadOnly = true;
             this.dgvCaminhos.Size = new System.Drawing.Size(846, 60);
             this.dgvCaminhos.TabIndex = 8;
             this.dgvCaminhos.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvCaminhos_CellClick);
             // 
             // dgvMelhorCaminho
             // 
+            this.dgvMelhorCaminho.AllowUserToAddRows = false;
+            this.dgvMelhorCaminho.AllowUserToDeleteRows = false;
+            this.dgvMelhorCaminho.AllowUserToResizeColumns = false;
+            this.dgvMelhorCaminho.AllowUserToResizeRows = false;
             this.dgvMelhorCaminho.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvMelhorCaminho.Location = new System.Drawing.Point(111, 128);
             this.dgvMelhorCaminho.Name = "dgvMelhorCaminho";
+            this.dgvMelhorCaminho.ReadOnly = true;
             this.dgvMelhorCaminho.Size = new System.Drawing.Size(111, 311);
             this.dgvMelhorCaminho.TabIndex = 9;
             this.dgvMelhorCaminho.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.PintaMelhorCaminho);
