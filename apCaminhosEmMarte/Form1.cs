@@ -31,6 +31,7 @@ namespace apCaminhosEmMarte
             {
                 MessageBox.Show("Erro ao ler arquivos", "Abortando programa", MessageBoxButtons.OK,MessageBoxIcon.Error);
                 Application.Exit();
+                return;
             }
 
 
@@ -58,7 +59,6 @@ namespace apCaminhosEmMarte
 
                     if (novaCidade.LerRegistro(asCidades))
                     {
-                        qtasCidades++;
                         InserirEmOrdem(novaCidade);
                     }
                     else
@@ -140,9 +140,9 @@ namespace apCaminhosEmMarte
         
         private void ExibirCaminhos()
         {
-            int indCaminhoAtual = 1;
             int indMelhorCaminho = 1;
             int melhorParametro = int.MaxValue;
+            int tamanhoMaiorCaminho = 0;
 
             dgvCaminhos.Columns.Clear();
             dgvCaminhos.Rows.Clear();
@@ -155,45 +155,82 @@ namespace apCaminhosEmMarte
 
             foreach(List<Ligacao> caminho in caminhos)
             {
-                dgvCaminhos.Columns.Add("NumeroCaminho" + indCaminhoAtual, $"{indCaminhoAtual}a");
+                if(caminho.Count > tamanhoMaiorCaminho)
+                {
+                    tamanhoMaiorCaminho = caminho.Count;
+                }
+            }
+
+            for(int i = 0; i <= tamanhoMaiorCaminho; i++)
+            {
+                dgvCaminhos.Columns.Add("col" + i, $"{i+1}a");
+            }
+
+            
+            foreach(List<Ligacao> caminho in caminhos)
+            {
+                int linhaAtual = dgvCaminhos.Rows.Add();
                 
-                int parametroAtual = 0;
-                int linhaAtual = 0;
                 int indCidadeIni = 0;
                 int indCidadeFim = 0;
+                int parametroAtual = 0;
+                int colunaAtual = 0;
+
                 List<Cidade> cidadesVistas = new List<Cidade>();
+                
                 foreach(Ligacao lig in caminho)
                 {
                     parametroAtual += lig.AcessarCriterioSeparacao(criterioAtual);
                     
-                    
                     ProcuraCidade(new Cidade(lig.IdInicio), out indCidadeIni);
                     ProcuraCidade(new Cidade(lig.IdFim), out indCidadeFim);
 
+                    
                     if (cidadesVistas.Find(c => c.CompareTo(cidades[indCidadeIni]) == 0) == default(Cidade))
                     {
-                        dgvCaminhos.Rows.Add();
-                        dgvCaminhos.Rows[linhaAtual++].Cells[indCaminhoAtual - 1].Value = cidades[indCidadeIni].Nome;
+                        dgvCaminhos[colunaAtual++,linhaAtual].Value = cidades[indCidadeIni].Nome;
+                        cidadesVistas.Add(cidades[indCidadeIni]);
                     }
-                    if(cidadesVistas.Find(c => c.CompareTo(cidades[indCidadeFim]) == 0) == default(Cidade))
-                    { 
-                        dgvCaminhos.Rows.Add();
-                        dgvCaminhos.Rows[linhaAtual++].Cells[indCaminhoAtual - 1].Value = cidades[indCidadeFim].Nome;
-                    }
+                    if (cidadesVistas.Find(c => c.CompareTo(cidades[indCidadeFim]) == 0) == default(Cidade))
+                    {
+                        dgvCaminhos[colunaAtual++, linhaAtual].Value = cidades[indCidadeFim].Nome;
+                        cidadesVistas.Add(cidades[indCidadeFim]);
 
-                    cidadesVistas.Add(cidades[indCidadeIni]);
-                    cidadesVistas.Add(cidades[indCidadeFim]);
+                    }
                 }
-
-
                 if(parametroAtual < melhorParametro)
                 {
-                    indMelhorCaminho = indCaminhoAtual;
+                    indMelhorCaminho = linhaAtual;
                 }
-                indCaminhoAtual++;
-
             }
 
+            List<Ligacao> melhorCaminho = caminhos[indMelhorCaminho];
+            int indCidadeIni = 0;
+            int indCidadeFim = 0;
+            int colunaAtual = 0;
+            List<Cidade> cidadesVistas = new List<Cidade>();
+            foreach (Ligacao lig in melhorCaminho)
+            {
+                int linhaAtual = dgvCaminhos.Rows.Add();
+
+                
+
+                ProcuraCidade(new Cidade(lig.IdInicio), out indCidadeIni);
+                ProcuraCidade(new Cidade(lig.IdFim), out indCidadeFim);
+
+
+                if (cidadesVistas.Find(c => c.CompareTo(cidades[indCidadeIni]) == 0) == default(Cidade))
+                {
+                    dgvCaminhos[colunaAtual++, linhaAtual].Value = cidades[indCidadeIni].Nome;
+                    cidadesVistas.Add(cidades[indCidadeIni]);
+                }
+                if (cidadesVistas.Find(c => c.CompareTo(cidades[indCidadeFim]) == 0) == default(Cidade))
+                {
+                    dgvCaminhos[colunaAtual++, linhaAtual].Value = cidades[indCidadeFim].Nome;
+                    cidadesVistas.Add(cidades[indCidadeFim]);
+
+                }
+            }
         }
 
         private void VerificaCriterio(object sender, EventArgs e)
@@ -222,6 +259,7 @@ namespace apCaminhosEmMarte
                 cidades[i + 1] = cidades[i];
             }
             cidades[onde] = cidade;
+            qtasCidades++;
         }
         
         private void InserirEmOrdem(Ligacao ligacao)
@@ -248,17 +286,11 @@ namespace apCaminhosEmMarte
             int ini = 0;
             int fim = qtasCidades - 1;
 
-            if(ini == fim)
-            {
-                onde = ini;
-                return false;
-            }
-
             while(ini <= fim)
             {
                 onde = ini + (fim - ini) / 2;
                 int comparacao = cidades[onde].CompareTo(proc);
-                if ( comparacao == 0)
+                if (comparacao == 0)
                 {
                     return true;
                 }
@@ -291,12 +323,12 @@ namespace apCaminhosEmMarte
             bool podeContinuar = true;
             while (podeContinuar)
             {
-                podeContinuar = !(indCidade == indOrigem && indDestino == tamanhoVetor && pilhaBacktracking.EstaVazia);
+                podeContinuar = !(indCidade == indOrigem && indDestino == qtasCidades && pilhaBacktracking.EstaVazia);
                 bool achouCaminho = false;
 
                 if (podeContinuar)
                 {
-                    while((indDestino < tamanhoVetor) && !achouCaminho)
+                    while((indDestino < qtasCidades) && !achouCaminho)
                     {
                         if (matrizAdjacencia[indCidade,indDestino] == null)
                         {
@@ -328,7 +360,7 @@ namespace apCaminhosEmMarte
 
                                     visitados[indCidade] = true;
                                     indDestino = 0;
-                                    ProcuraCidade(new Cidade(pilhaBacktracking.OTopo().IdFim), out indCidade);
+                                    ProcuraCidade(new Cidade((pilhaBacktracking.OTopo().IdFim != cidades[indCidade].Id) ? pilhaBacktracking.OTopo().IdFim : pilhaBacktracking.OTopo().IdInicio), out indCidade);
 
                                 }
                             }
@@ -339,9 +371,14 @@ namespace apCaminhosEmMarte
                         visitados[indCidade] = false;
                         if (!pilhaBacktracking.EstaVazia)
                         {
-                            ProcuraCidade(new Cidade(pilhaBacktracking.OTopo().IdInicio), out indCidade);
-                            ProcuraCidade(new Cidade(pilhaBacktracking.OTopo().IdFim), out indDestino);
-                            indDestino++;
+                            int orig = indCidade;
+
+                            Ligacao topo = pilhaBacktracking.OTopo();
+                            int idFim = (topo.IdInicio == cidades[indCidade].Id) ? topo.IdFim : topo.IdInicio;
+
+                            ProcuraCidade(new Cidade(idFim), out indCidade);
+
+                            indDestino = orig + 1;
 
                             pilhaBacktracking.Desempilhar();
                         }

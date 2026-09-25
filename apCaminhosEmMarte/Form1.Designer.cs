@@ -141,6 +141,10 @@
             // 
             // dgvCaminhos
             // 
+            this.dgvCaminhos.AllowUserToAddRows = false;
+            this.dgvCaminhos.AllowUserToDeleteRows = false;
+            this.dgvCaminhos.AllowUserToResizeColumns = false;
+            this.dgvCaminhos.AllowUserToResizeRows = false;
             this.dgvCaminhos.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
@@ -152,14 +156,11 @@
             // 
             // dgvMelhorCaminho
             // 
-            this.dgvMelhorCaminho.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left)));
             this.dgvMelhorCaminho.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvMelhorCaminho.Location = new System.Drawing.Point(111, 128);
             this.dgvMelhorCaminho.Name = "dgvMelhorCaminho";
             this.dgvMelhorCaminho.Size = new System.Drawing.Size(111, 311);
             this.dgvMelhorCaminho.TabIndex = 9;
-
             // 
             // lbOrigem
             // 
@@ -197,7 +198,6 @@
             this.lbMelhorCaminho.Size = new System.Drawing.Size(82, 13);
             this.lbMelhorCaminho.TabIndex = 2;
             this.lbMelhorCaminho.Text = "Melhor caminho";
-  
             // 
             // lbCaminhosEncontrados
             // 
@@ -228,8 +228,7 @@
             // 
             // pnlMapa
             // 
-            this.pnlMapa.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
+            this.pnlMapa.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.pnlMapa.BackgroundImage = global::apCaminhosEmMarte.Properties.Resources.Mapa_Marte_sem_rotas_sem_cidades1;
             this.pnlMapa.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
