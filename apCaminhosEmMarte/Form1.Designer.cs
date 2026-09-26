@@ -145,6 +145,9 @@
             this.dgvCaminhos.AllowUserToDeleteRows = false;
             this.dgvCaminhos.AllowUserToResizeColumns = false;
             this.dgvCaminhos.AllowUserToResizeRows = false;
+            this.dgvCaminhos.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.dgvCaminhos.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvCaminhos.Location = new System.Drawing.Point(12, 445);
             this.dgvCaminhos.Name = "dgvCaminhos";
@@ -233,6 +236,8 @@
             // 
             // pnlMapa
             // 
+            this.pnlMapa.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.pnlMapa.BackgroundImage = global::apCaminhosEmMarte.Properties.Resources.Mapa_Marte_sem_rotas_sem_cidades1;
             this.pnlMapa.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.pnlMapa.Location = new System.Drawing.Point(228, 76);
