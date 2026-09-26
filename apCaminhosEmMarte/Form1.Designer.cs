@@ -145,9 +145,10 @@
             this.dgvCaminhos.AllowUserToDeleteRows = false;
             this.dgvCaminhos.AllowUserToResizeColumns = false;
             this.dgvCaminhos.AllowUserToResizeRows = false;
-            this.dgvCaminhos.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
+            this.dgvCaminhos.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.dgvCaminhos.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.dgvCaminhos.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
             this.dgvCaminhos.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvCaminhos.Location = new System.Drawing.Point(12, 445);
             this.dgvCaminhos.Name = "dgvCaminhos";
@@ -162,6 +163,10 @@
             this.dgvMelhorCaminho.AllowUserToDeleteRows = false;
             this.dgvMelhorCaminho.AllowUserToResizeColumns = false;
             this.dgvMelhorCaminho.AllowUserToResizeRows = false;
+            this.dgvMelhorCaminho.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
+            this.dgvMelhorCaminho.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.dgvMelhorCaminho.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.DisplayedCells;
             this.dgvMelhorCaminho.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvMelhorCaminho.Location = new System.Drawing.Point(111, 128);
             this.dgvMelhorCaminho.Name = "dgvMelhorCaminho";
@@ -209,8 +214,7 @@
             // 
             // lbCaminhosEncontrados
             // 
-            this.lbCaminhosEncontrados.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left)));
+            this.lbCaminhosEncontrados.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.lbCaminhosEncontrados.AutoSize = true;
             this.lbCaminhosEncontrados.Location = new System.Drawing.Point(9, 429);
             this.lbCaminhosEncontrados.Name = "lbCaminhosEncontrados";
@@ -236,7 +240,8 @@
             // 
             // pnlMapa
             // 
-            this.pnlMapa.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.pnlMapa.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.pnlMapa.BackgroundImage = global::apCaminhosEmMarte.Properties.Resources.Mapa_Marte_sem_rotas_sem_cidades1;
             this.pnlMapa.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;

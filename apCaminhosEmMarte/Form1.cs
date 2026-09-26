@@ -224,6 +224,7 @@ namespace apCaminhosEmMarte
                 }
                 if(parametroAtual < melhorParametro)
                 {
+                    melhorParametro = parametroAtual;
                     indMelhorCaminho = linhaAtual;
                 }
             }
@@ -477,7 +478,7 @@ namespace apCaminhosEmMarte
 
         private void DesenhaCaminho(Graphics g)
         {
-            if (caminhos.Count < indCaminhoAtual)
+            if (caminhos == null || indCaminhoAtual < 0 || indCaminhoAtual >= caminhos.Count)
             {
                 return;
             }
